@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Imported site UI lives in src/components/site and uses its own CSS classes in src/styles.css; tsconfig strict index flags are relaxed to fit the imported code.
