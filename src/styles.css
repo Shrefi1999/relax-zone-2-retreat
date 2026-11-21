@@ -1010,8 +1010,9 @@ button, input, select { font: inherit; }
 .home-main > .apartments-section { order: 3; }
 .home-main > .nearby-home { order: 4; }
 .home-main > .tiktok-promo { order: 5; }
-.home-main > .faq-section { order: 6; }
-.home-main > .customer-reviews { order: 7; }
+.home-main > .faq-section { order: 5; }
+.home-main > .customer-reviews { order: 6; }
+.home-main > .destination-home { order: 7; }
 .home-hero { min-height: 750px; position: relative; display: flex; align-items: center; overflow: hidden; background: #16140f; }
 .home-hero-slideshow { position: absolute; inset: 0; overflow: hidden; background: #211f19; }
 .home-hero-slideshow .apartment-photo-slide { object-position: center 48%; }
