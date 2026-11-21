@@ -958,7 +958,6 @@ button, input, select { font: inherit; }
 .destination-copy>p,.nearby-heading>p,.faq-heading>p { max-width: 520px; color: #c0baae; font-size: 14px; line-height: 2; }
 .destination-map { height: 190px; margin-top: 25px; padding: 6px; border: 1px solid #51442e; border-radius: 10px; }
 .destination-map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(.8) invert(.9) contrast(.85); }
-.nearby-content { padding-top: 90px; }
 .nearby-heading { margin-bottom: 28px; }
 .nearby-heading h3 { font-size: clamp(26px,3vw,36px); }
 .nearby-heading>p { margin-bottom: 0; }
@@ -992,7 +991,6 @@ button, input, select { font: inherit; }
   .destination-intro { grid-template-columns: 1fr; }
   .destination-photo { min-height: 360px; }
   .destination-map { height: 220px; }
-  .nearby-content { padding-top: 65px; }
   .faq-list { grid-template-columns: 1fr; }
 }
 @media(max-width:560px) {
