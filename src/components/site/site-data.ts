@@ -151,7 +151,7 @@ export const apartmentUnits = [
   {
     number: '11',
     title: 'استديو رقم 11',
-    features: ['غرفة', 'جلسة', 'مطبخ', 'حمام'],
+    features: ['غرفة نوم', 'جلسة', 'مطبخ', 'حمام'],
     photos: [
       { src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-11-20%20at%207.1%D9%842.00%20PM-bDj0v2X2qSCbnLtJsfTblwEKU3YJKO.jpeg', alt: 'مطبخ الاستديو مع الغسالة ومنطقة التلفاز' },
       { src: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-11-20%20at%207.12.00%20PM-xl0Vmd1vTmHFktH3B3R3ALTCoCo7zY.jpeg', alt: 'غرفة الاستديو وجلسة المعيشة والسرير' },

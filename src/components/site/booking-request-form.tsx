@@ -1,16 +1,21 @@
 
 import { useMemo, useState } from 'react'
 import { ArrowLeft, MessageCircle } from 'lucide-react'
-import { bookingRates, phoneNumber } from './site-data'
+import { apartmentUnits, bookingRates, phoneNumber } from './site-data'
 
 const formatPrice = (amount: number) => new Intl.NumberFormat('ar-SA').format(amount)
-const apartmentTypes = [
-  { value: 'studio', label: 'استوديو', unit: '11' },
-  { value: 'one-bedroom-terrace', label: 'غرفة وصالة مع سطح', unit: '8' },
-  { value: 'two-bedroom', label: 'غرفتين وصالة', unit: '5' },
-  { value: 'three-bedroom', label: 'ثلاث غرف وصالة', unit: '23' },
-  { value: 'three-bedroom-new', label: 'ثلاث غرف وصالة (جديدة)', unit: '27' },
-] as const
+const joinFeatures = (f: readonly string[]) => f.length < 2 ? f.join('') : `${f.slice(0, -1).join(' و')} و${f[f.length - 1]}`
+const apartmentTypes = (() => {
+  const groups = new Map<string, { value: string; label: string; units: string[] }>()
+  for (const unit of apartmentUnits) {
+    const desc = joinFeatures(unit.features)
+    const label = unit.number === '11' ? `استديو: ${desc}` : desc
+    const g = groups.get(label)
+    if (g) g.units.push(unit.number)
+    else groups.set(label, { value: `type-${unit.number}`, label, units: [unit.number] })
+  }
+  return [...groups.values()]
+})()
 
 function getTodayDate() {
   const date = new Date()
@@ -20,14 +25,16 @@ function getTodayDate() {
 
 export function BookingRequestForm({ initialUnit }: { initialUnit?: string }) {
   const [bookingType, setBookingType] = useState<'daily' | 'monthly'>('daily')
-  const initialType = apartmentTypes.find((type) => type.unit === initialUnit)?.value ?? apartmentTypes[0].value
+  const initialType = apartmentTypes.find((type) => type.units.includes(initialUnit ?? ''))?.value ?? apartmentTypes[0].value
   const [apartmentType, setApartmentType] = useState<string>(initialType)
   const [arrival, setArrival] = useState('')
   const [nights, setNights] = useState('2')
   const [dateError, setDateError] = useState('')
   const today = getTodayDate()
   const selectedType = apartmentTypes.find((type) => type.value === apartmentType) ?? apartmentTypes[0]
-  const selectedUnit = bookingRates.find((unit) => unit.number === selectedType.unit) ?? bookingRates[0]
+  const groupRates = bookingRates.filter((r) => selectedType.units.includes(r.number))
+  const selectedUnit = (initialUnit && groupRates.find((r) => r.number === initialUnit)) || [...groupRates].sort((x, y) => (bookingType === 'daily' ? x.daily - y.daily : x.monthly - y.monthly))[0] || bookingRates[0]
+  const variesPrice = new Set(groupRates.map((r) => bookingType === 'daily' ? r.daily : r.monthly)).size > 1 && !(initialUnit && groupRates.some((r) => r.number === initialUnit))
   const unitPrice = bookingType === 'daily' ? selectedUnit.daily : selectedUnit.monthly
 
   const stayLength = useMemo(() => {
@@ -86,7 +93,7 @@ export function BookingRequestForm({ initialUnit }: { initialUnit?: string }) {
     </div>
     {dateError && <p className="booking-date-error" role="alert">{dateError}</p>}
     <div className="booking-price-summary" aria-live="polite">
-      <span>التكلفة التقديرية</span>
+      <span>التكلفة التقديرية{variesPrice ? ' (تبدأ من)' : ''} · {formatPrice(unitPrice)} ر.س / {periodLabel}</span>
       <strong>{formatPrice(estimatedTotal)} <small>ر.س</small></strong>
     </div>
     <button className="button-whatsapp full" type="submit"><MessageCircle aria-hidden="true" /> احجز عبر واتساب <ArrowLeft aria-hidden="true" /></button>
