@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowUpLeft, MapPin, ShieldCheck, Sparkles, Wifi } from 'luc
 import { ApartmentListings } from '@/components/site/apartment-listings'
 import { ApartmentPhotoSlideshow } from '@/components/site/apartment-photo-slideshow'
 import { HomeGalleryCarousel } from '@/components/site/home-gallery-carousel'
+import { StayAmenities } from '@/components/site/stay-amenities'
 import { BookingRequestForm } from '@/components/site/booking-request-form'
 import { FloatingContactActions } from '@/components/site/floating-contact-actions'
 import { FaqSection } from '@/components/site/faq-section'
@@ -30,7 +31,11 @@ function getApartmentCoverPhotos(unitNumbers: string[]) {
   })
 }
 
-const heroApartmentPhotos = getApartmentCoverPhotos(['10', '2', '5'])
+const heroApartmentPhotos = ['20', '5', '14'].flatMap((number) => {
+  const unit = apartmentUnits.find((apartment) => apartment.number === number)
+  const photo = unit?.photos.find((image) => image.alt.includes(number === '5' ? 'رئيسية' : 'صالة'))
+  return photo ? [photo] : []
+})
 function SectionTitle({ eyebrow, title, text }: { eyebrow: string; title: string; text?: string }) {
   return <div className="section-title"><span className="eyebrow">{eyebrow}</span><h2>{title}</h2>{text && <p>{text}</p>}</div>
 }
@@ -40,7 +45,7 @@ function Home() {
     <main className="home-main" dir="rtl">
 
       <section className="home-hero" id="home" aria-labelledby="home-title">
-        <ApartmentPhotoSlideshow images={heroApartmentPhotos} className="home-hero-slideshow" label="لقطات من الشقق" priority />
+        <ApartmentPhotoSlideshow images={heroApartmentPhotos} className="home-hero-slideshow" label="لقطات من الشقق" priority controls />
         <div className="home-hero-shade" />
         <div className="home-hero-content">
           <div className="home-hero-copy"><span className="eyebrow">ريلاكس زون 2 · جدة</span><h1 id="home-title">إقامتك القادمة<br /><em>تبدأ براحة</em></h1><p>شقق مفروشة تمنحك مساحة أوسع وراحة أقرب، في قلب جدة.</p></div>
@@ -50,9 +55,11 @@ function Home() {
 
       <section className="trust-strip" aria-label="مزايا الإقامة"><div><span className="trust-icon"><ShieldCheck /></span><span><b>خصوصية وراحة</b><small>لك ولعائلتك</small></span></div><i /><div><span className="trust-icon"><Sparkles /></span><span><b>عناية بالتفاصيل</b><small>إقامة تليق بك</small></span></div><i /><div><span className="trust-icon"><MapPin /></span><span><b>موقع استراتيجي</b><small>قريب من كل ما تحتاج</small></span></div><i /><div><span className="trust-icon"><Wifi /></span><span><b>خدمات متكاملة</b><small>راحة بلا انقطاع</small></span></div></section>
 
+      <section className="apartments-section" id="gallery"><div className="section-wrap"><SectionTitle eyebrow="مساحات مختارة بعناية" title="اختر الشقة التي تناسب إقامتك" text="شقق مستقلة، لكل واحدة تفاصيلها وصورها الخاصة — لتختار وأنت مطمئن." /><ApartmentListings compact /><div className="apartment-catalog-footer"><span>لكل شقة معرض مستقل يضم صورها كاملة</span><a className="text-link" href="/gallery">استكشف الشقق والصور <ArrowLeft size={16} /></a></div></div></section>
+
       <HomeGalleryCarousel images={heroApartmentPhotos} />
 
-      <section className="apartments-section" id="gallery"><div className="section-wrap"><SectionTitle eyebrow="مساحات مختارة بعناية" title="اختر الشقة التي تناسب إقامتك" text="شقق مستقلة، لكل واحدة تفاصيلها وصورها الخاصة — لتختار وأنت مطمئن." /><ApartmentListings compact /><div className="apartment-catalog-footer"><span>لكل شقة معرض مستقل يضم صورها كاملة</span><a className="text-link" href="/gallery">استكشف الشقق والصور <ArrowLeft size={16} /></a></div></div></section>
+      <StayAmenities />
 
       <NearbyHighlights />
 
@@ -73,6 +80,7 @@ export const Route = createFileRoute('/')({
     { title: 'ريلاكس زون 2 | شقق مفروشة فاخرة في جدة' }, { name: 'description', content: 'استعرض شقق ريلاكس زون 2 المفروشة في جدة، وتعرّف على شقة 14 ومرافق كل وحدة، ثم اطلب حجزك اليومي أو الشهري عبر واتساب.' },
     { property: 'og:title', content: 'ريلاكس زون 2 | شقق مفروشة فاخرة في جدة' }, { property: 'og:description', content: 'استعرض شقق ريلاكس زون 2 المفروشة في جدة، وتعرّف على شقة 14 ومرافق كل وحدة، ثم اطلب حجزك اليومي أو الشهري عبر واتساب.' },
     { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary_large_image' },
+    { property: 'og:image', content: heroApartmentPhotos[0].src }, { name: 'twitter:image', content: heroApartmentPhotos[0].src },
   ] }),
   component: Home,
 })

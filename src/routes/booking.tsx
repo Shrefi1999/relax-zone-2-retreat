@@ -28,6 +28,7 @@ export const Route = createFileRoute('/booking')({
     { title: 'احجز إقامتك | ريلاكس زون 2 جدة' }, { name: 'description', content: 'أرسل طلب الحجز وتواصل مع فريق ريلاكس زون 2 في حي الشاطئ بجدة عبر واتساب.' },
     { property: 'og:title', content: 'احجز إقامتك | ريلاكس زون 2 جدة' }, { property: 'og:description', content: 'أرسل طلب الحجز وتواصل مع فريق ريلاكس زون 2 في حي الشاطئ بجدة عبر واتساب.' },
     { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary_large_image' },
+    { property: 'og:image', content: apartmentPhotos[2].src }, { name: 'twitter:image', content: apartmentPhotos[2].src },
   ] }),
   validateSearch: (s: Record<string, unknown>): { unit?: string } => (typeof s.unit === 'string' ? { unit: s.unit } : {}),
   component: BookingPage,

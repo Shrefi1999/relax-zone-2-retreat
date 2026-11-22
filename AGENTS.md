@@ -30,3 +30,6 @@ use the editor.
 <!-- LOVABLE:END -->
 
 - Imported site UI lives in src/components/site and uses its own CSS classes in src/styles.css; tsconfig strict index flags are relaxed to fit the imported code.
+- Share ApartmentListings between home and gallery; compact mode only limits thumbnails and mobile rows so card styling and booking links remain consistent.
+- Controlled hero slides use the shared ApartmentPhotoSlideshow with a pause control and reduced-motion support; leave uncontrolled slides compatible with other pages.
+- Keep the amenities section in its own browser-safe component and give every direct home section an explicit CSS order so visual and document order agree.

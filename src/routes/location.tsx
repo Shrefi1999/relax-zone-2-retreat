@@ -24,6 +24,7 @@ export const Route = createFileRoute('/location')({
     { title: 'موقعنا | ريلاكس زون 2 جدة' }, { name: 'description', content: 'اعثر على ريلاكس زون 2 في حي الشاطئ بجدة وافتح الاتجاهات عبر خرائط Google.' },
     { property: 'og:title', content: 'موقعنا | ريلاكس زون 2 جدة' }, { property: 'og:description', content: 'اعثر على ريلاكس زون 2 في حي الشاطئ بجدة وافتح الاتجاهات عبر خرائط Google.' },
     { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary_large_image' },
+    { property: 'og:image', content: apartmentPhotos[6].src }, { name: 'twitter:image', content: apartmentPhotos[6].src },
   ] }),
   component: LocationPage,
 })

@@ -23,6 +23,7 @@ export const Route = createFileRoute('/blog')({
     { title: 'مدونة ريلاكس زون 2 | نصائح لإقامة مريحة في جدة' }, { name: 'description', content: 'أفكار ونصائح تساعدك على اختيار الشقة والتخطيط لإقامة أهدأ في جدة.' },
     { property: 'og:title', content: 'مدونة ريلاكس زون 2 | نصائح لإقامة مريحة في جدة' }, { property: 'og:description', content: 'أفكار ونصائح تساعدك على اختيار الشقة والتخطيط لإقامة أهدأ في جدة.' },
     { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary_large_image' },
+    ...(blogPosts[0].image.startsWith('https://') ? [{ property: 'og:image', content: blogPosts[0].image }, { name: 'twitter:image', content: blogPosts[0].image }] : []),
   ] }),
   component: BlogPage,
 })
